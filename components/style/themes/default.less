@@ -5,7 +5,7 @@
 @ant-prefix             : ant;
 
 // -------- Colors -----------
-@primary-color          : @blue-6;
+@primary-color          : var(--primary-color, @blue-6);
 @info-color             : @blue-6;
 @success-color          : @green-6;
 @processing-color       : @blue-6;
@@ -16,16 +16,16 @@
 
 // Color used by default to control hover and active backgrounds and for
 // alert info backgrounds.
-@primary-1: color(~`colorPalette("@{primary-color}", 1)`);  // replace tint(@primary-color, 90%)
-@primary-2: color(~`colorPalette("@{primary-color}", 2)`);  // replace tint(@primary-color, 80%)
-@primary-3: color(~`colorPalette("@{primary-color}", 3)`);  // unused
-@primary-4: color(~`colorPalette("@{primary-color}", 4)`);  // unused
-@primary-5: color(~`colorPalette("@{primary-color}", 5)`);  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)
+@primary-1: var(--primary-1, color(~`colorPalette("@{primary-color}", 1)`));  // replace tint(@primary-color, 90%)
+@primary-2: var(--primary-2, color(~`colorPalette("@{primary-color}", 2)`));  // replace tint(@primary-color, 80%)
+@primary-3: var(--primary-3, color(~`colorPalette("@{primary-color}", 3)`));  // unused
+@primary-4: var(--primary-4, color(~`colorPalette("@{primary-color}", 4)`));  // unused
+@primary-5: var(--primary-5, color(~`colorPalette("@{primary-color}", 5)`));  // color used to control the text color in many active and hover states, replace tint(@primary-color, 20%)
 @primary-6: @primary-color;                                 // color used to control the text color of active buttons, don't use, use @primary-color
-@primary-7: color(~`colorPalette("@{primary-color}", 7)`);  // replace shade(@primary-color, 5%)
-@primary-8: color(~`colorPalette("@{primary-color}", 8)`);  // unused
-@primary-9: color(~`colorPalette("@{primary-color}", 9)`);  // unused
-@primary-10: color(~`colorPalette("@{primary-color}", 10)`);  // unused
+@primary-7: var(--primary-7, color(~`colorPalette("@{primary-color}", 7)`));  // replace shade(@primary-color, 5%)
+@primary-8: var(--primary-8, color(~`colorPalette("@{primary-color}", 8)`));  // unused
+@primary-9: var(--primary-9, color(~`colorPalette("@{primary-color}", 9)`));  // unused
+@primary-10: var(--primary-10, color(~`colorPalette("@{primary-color}", 10)`));  // unused
 
 // Base Scaffolding Variables
 // ---
@@ -462,11 +462,11 @@
 @slider-track-background-color-hover: @primary-4;
 @slider-handle-color:                 @primary-3;
 @slider-handle-color-hover:           @primary-4;
-@slider-handle-color-focus:           tint(@primary-color, 20%);
-@slider-handle-color-focus-shadow:    tint(@primary-color, 50%);
+@slider-handle-color-focus:           @primary-tint-20;
+@slider-handle-color-focus-shadow:    @primary-tint-50;
 @slider-handle-color-tooltip-open:    @primary-color;
 @slider-dot-border-color:             @border-color-split;
-@slider-dot-border-color-active:      tint(@primary-color, 50%);
+@slider-dot-border-color-active:      @primary-tint-50;
 @slider-disabled-color:               @disabled-color;
 @slider-disabled-background-color:    @component-background;
 
@@ -491,5 +491,19 @@
 // Motion
 // ---
 @wave-animation-width: 6px;
+
+@var-reg: ".+?(#[0-9a-fA-F]+)\)?";
+@primary-fade-20: var(--primary-fade-20, fade(
+  color(replace(~"@{primary-color}", @var-reg, "$1")), 20%
+));
+@primary-tint-20: var(--primary-tint-20, tint(
+  color(replace(~"@{primary-color}", @var-reg, "$1")), 20%
+));
+@primary-tint-50: var(--primary-tint-50, tint(
+  color(replace(~"@{primary-color}", @var-reg, "$1")), 50%
+));
+@primary-tint-80: var(--primary-tint-80, tint(
+  color(replace(~"@{primary-color}", @var-reg, "$1")), 80%
+));
 
 @import "./default.deperated.less";
